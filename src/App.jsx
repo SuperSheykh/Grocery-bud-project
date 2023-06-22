@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Form from './Form'
 import Items from './Items'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
-   const [tasks, setTasks] = useState([{ desc: 'Go shoppping', done: false }])
+   const [tasks, setTasks] = useState(() => {
+      return JSON.parse(localStorage.getItem('tasks')) || []
+   })
 
    const addToList = (task) => {
       setTasks((prev) => [...prev, task])
@@ -23,6 +25,9 @@ const App = () => {
       setTasks((prev) => prev.filter((task) => task.id !== id))
    }
 
+   useEffect(() => {
+      localStorage.setItem('tasks', JSON.stringify(tasks))
+   }, [tasks])
    return (
       <main className='section-center'>
          <Form addToList={addToList} />
