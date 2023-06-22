@@ -12,7 +12,7 @@ function SingleItem({ task, toggleDone, delTask }) {
             id={id}
             onClick={() => toggleDone(id)}
          />
-         <p style={parStyle}>{desc}</p>
+         <p style={{ ...parStyle, textTransform: 'capitalize' }}>{desc}</p>
          <button
             type='button'
             className='btn remove-btn'
